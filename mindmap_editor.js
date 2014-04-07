@@ -19,6 +19,10 @@ function findNodeByKey(root, key) {
             }
         }
     }
+};
+
+function newNodeKey() {
+    return java.util.UUID.randomUUID().toString();
 }
 
 
