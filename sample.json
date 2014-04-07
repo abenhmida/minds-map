@@ -1,0 +1,28 @@
+{
+    "_id": "1234-5678-9012-3456",
+    "name": "Berries",
+    "children": [
+        {
+            "key": "1",
+            "name": "Grapes",
+            "children": [
+                {
+                    "key": "2",
+                    "name": "Red grapes"
+                },
+                {
+                    "key": "3",
+                    "name": "Green grapes"
+                }
+            ]
+        },
+        {
+            "key": "4",
+            "name": "Strawberries"
+        },
+        {
+            "key": "5",
+            "name": "Blueberries"
+        }
+    ]
+}
