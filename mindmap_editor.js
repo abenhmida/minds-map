@@ -23,11 +23,34 @@ function findNodeByKey(root, key) {
 
 function newNodeKey() {
     return java.util.UUID.randomUUID().toString();
-}
+};
+
+function publishMindMapEvent(mindMap, event) {
+    eventBus.publish('mindsMaps.events.' + mindMap._id, event);
+};
 
 
 eventBus.registerHandler('mindMaps.editor.addNode', function (args) {
-
+    eventBus.send('mindMaps.find', {_id: args.mindMapId}, function (res) {
+        if (res.mindMap) {
+            var mindMap = res.mindMap;
+            var parent = findNodeByKey(mindMap, args.parentKey);
+            var newNode = {key: newNodeKey()};
+            if (args.name) {
+                newNode.name = args.name;
+            } else {
+                newNode.name = args.name;
+            }
+            if (!parent.children) {
+                parent.children = [];
+            }
+            parent.children.push(newNode);
+            eventBus.send('mindMaps.save', mindMap, function () {
+                publishMindMapEvent(mindMap, {event: 'nodeAdded',
+                    parentKey: args.parentKey, node: newNode});
+            });
+        }
+    });
 });
 
 eventBus.registerHandler('mindMaps.editor.renameNode', function (args) {
